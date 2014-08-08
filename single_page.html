@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <title>Single page applications</title>
+        <script type="text/javascript" src="js/sammy.min.js"></script>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/knockout-min.js"></script>
+        <script type="text/javascript" src="js/single_page.js"></script>
+
+        <style type="text/css">
+            .folders {
+                cursor: pointer;
+            }
+            .selected {
+                color: red;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Single page applications</h2>
+
+        <a href="http://learn.knockoutjs.com/#/?tutorial=webmail">Read more</a>
+        <br /><br />
+
+        <!-- Folders -->
+        <ul class="folders" data-bind="foreach: folders">
+            <li data-bind="text: $data,
+                            css: {selected: $data == $root.chosenFolderId()},
+                            click: $root.goToFolder"></li>
+        </ul>
+
+        <!-- Mails grid -->
+        <table class="mails" data-bind="with: chosenFolderData">
+            <thead>
+                <tr>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Subject</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: mails">
+                <tr data-bind="click: $root.goToMail">
+                    <td data-bind="text: from"></td>
+                    <td data-bind="text: to"></td>
+                    <td data-bind="text: subject"></td>
+                    <td data-bind="text: date"></td>
+                </tr>     
+            </tbody>
+        </table>
+
+
+
+    </body>
+</html>

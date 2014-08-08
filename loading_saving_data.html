@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Loading and Saving data</title>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/knockout-min.js"></script>
+        <script type="text/javascript" src="js/loading_saving_data.js"></script>
+
+    </head>
+    <body>
+        <h2>Loading and Saving data</h2>
+
+        <a href="http://learn.knockoutjs.com/#/?tutorial=loadingsaving">Read more</a>
+        <br /><br />
+
+        <h3>Tasks</h3>
+
+        <form data-bind="submit: addTask">
+            Add task: <input data-bind="value: newTaskText" placeholder="What needs to be done?" />
+            <button type="submit">Add</button>
+        </form>
+
+        <form action="/tasks/saveform" method="post">
+            <!-- Show JSON data -->
+            <!-- <textarea name="tasks" data-bind="value: ko.toJSON(tasks)"></textarea> -->
+
+            <input type="hidden" name="tasks" data-bind="value: ko.toJSON(tasks)" />
+            <button data-bind="click: save">Save</button>
+        </form>
+
+        <ul data-bind="foreach: tasks, visible: tasks().length > 0">
+            <li>
+                <input type="checkbox" data-bind="checked: isDone" />
+                <input data-bind="value: title, disable: isDone" />
+                <a href="#" data-bind="click: $parent.removeTask">Delete</a>
+            </li> 
+        </ul>
+
+        You have <b data-bind="text: incompleteTasks().length">&nbsp;</b> incomplete task(s)
+        <span data-bind="visible: incompleteTasks().length == 0"> - it's beer time!</span>
+    </body>
+</html>

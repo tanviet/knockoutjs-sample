@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>Creating custom bindings</title>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/knockout-min.js"></script>
+        <script type="text/javascript" src="js/custom_bindings.js"></script>
+        <script type="text/javascript" scr="js/jquery-ui.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css">
+        
+        <style type="text/css">
+            table { background-color: #cde; padding: 1em; border-radius: 0.5em; }
+            table th { text-align:left; }
+            table th:last-child { min-width: 130px; }
+
+            .starRating span { width:24px; height:24px; background-image: url("img/stars.png"); display:inline-block; cursor: pointer; background-position: -24px 0; }
+            .starRating span.chosen { background-position: 0 0; }
+            .starRating:hover span { background-position: -24px 0; }
+            .starRating:hover span.hoverChosen { background-position: 0 0; }
+        </style>
+    </head>
+    <body>
+        <h2>Creating custom bindings</h2>
+
+        <a href="http://learn.knockoutjs.com/#/?tutorial=custombindings">All CSS classes at here - Read more</a>
+        <br /><br />
+
+        <h3 data-bind="text: question"></h3>
+        <p>Please distribute <b data-bind="text: pointsBudget"></b> points between the following options.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Option</th>
+                    <th>Importance</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: answers">
+                <tr>
+                    <td data-bind="text: answerText"></td>
+                    <td data-bind="starRating: points"></td>
+                    <!--                     
+                    <td>
+                        <select data-bind="options: [1,2,3,4,5], value: points"></select>
+                    </td> 
+                    -->
+                </tr>    
+            </tbody>
+        </table>
+
+        <h3 data-bind="fadeVisible: pointsUsed() > pointsBudget">You've used too many points! Please remove some.</h3>
+        
+        <p>You've used the total of <b data-bind="text: pointsUsed()"></b> points.</p>
+        <p>So you only have <b data-bind="text: pointsBudget - pointsUsed()"></b> points left to use.</p>
+        
+        <button data-bind="jqButton: { enable: pointsUsed() <= pointsBudget }, click: save">Finished</button>
+    </body>
+</html>
